@@ -1,0 +1,1071 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    /* This prevents the "bounce" and extra scrolling space */
+    overflow-x: hidden; 
+}
+/* THE ROTATION KEYFRAMES - Ensure this is at the TOP of your CSS */
+@keyframes continuous-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* --- CONTAINER --- */
+.hirono-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* --- THE DISC (BEHIND) --- */
+.large-disc {
+    position: relative;
+    width: 280px; 
+    height: 280px;
+    z-index: 1; /* Sit behind paper */
+    flex-shrink: 0;
+}
+
+.spinning-disc {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #222 0%, #000 100%);
+    border-radius: 50%;
+    position: relative;
+    animation: continuous-spin 8s linear infinite !important;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    /* Keeps everything inside aligned to the center */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- THE SVG TEXT (NO WOBBLE) --- */
+.curved-text-svg {
+    position: absolute;
+    width: 380px; /* Bigger than the 280px disc to stay outside */
+    height: 380px;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.vinyl-text {
+    fill: #D2C6F7;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* --- THE PAPER (ON TOP) --- */
+.hirono-paper {
+    position: relative;
+    z-index: 10; /* Higher than disc */
+    /* Adjust margin-left to pull the paper over the disc */
+    /* -80px to -100px usually hits that 1/3 overlap sweet spot */
+    margin-left: -90px; 
+    transform: rotate(-3deg);
+    box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
+}
+
+/* Center hole */
+.disc-center {
+    width: 35px;
+    height: 35px;
+    background: #751010;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 5;
+}
+
+
+/* Force the sections to stay tight together */
+main, #content-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+/* Ensure the footer is the absolute end of the document */
+footer, .lobby-footer-strip {
+    margin-bottom: 0 !important;
+}
+
+.main-stage {
+    position: relative;
+    width: 100vw;
+    /* Math: 100 * 9 / 16 = 56.25 */
+    height: 56.25vw; 
+    max-height: 100vh;
+    max-width: 177.78vh; /* Math: 100 * 16 / 9 */
+    background: #4D3604;
+    overflow: hidden;
+    box-shadow: 0 0 50px rgba(0,0,0,0.5);
+}
+#transition-curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0;
+    pointer-events: none; /* Allows you to click things through it */
+    z-index: 200; /* High enough to cover everything */
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* Ensure Page 3 and Passcode screen are also solid */
+#passcode-screen, #page-3 {
+    background-color: #000; /* Keep these black internally so they don't show the brown stage */
+}
+/* This hides the warning by default */
+#landscape-warning {
+    display: none; 
+}
+
+/* This only shows the warning on mobile-sized screens in portrait */
+@media screen and (max-width: 1024px) and (orientation: portrait) {
+    #landscape-warning {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        color: white;
+        z-index: 9999;
+        text-align: center;
+    }
+}
+
+@font-face {
+    font-family: 'CascadiaMono-VariableFont_wght';
+    /* Note the change to .ttf and format('truetype') */
+    src: url('./fonts/CascadiaMono-VariableFont_wght.ttf') format('truetype');
+
+}
+.warning-text {
+    font-family: 'CascadiaMono-VariableFont_wght';
+    font-size: .7rem;
+    font-weight: bold;
+}
+
+.credit-text {
+    font-family: 'CascadiaMono-VariableFont_wght';
+    color: #fff;
+    font-size: 0.6rem;
+    opacity: 0.8; /* Makes the credit secondary to the warning */
+}
+
+
+/* Hide warning when in landscape */
+@media (orientation: landscape) {
+    #landscape-warning { display: none; }
+}
+
+/* Page Transitions */
+#page-1, #page-2 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s ease-in-out;
+    overflow: hidden;
+}
+
+.hidden {
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+    display: none !important;
+}
+
+/* Simple Envelope Design */
+.envelope-wrapper {
+    cursor: pointer;
+}
+
+.envelope {
+    position: relative;
+    width: 150px;
+    height: 100px;
+    background: #d1bfa7;
+    border-radius: 0 0 5px 5px;
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-top: 60px solid #a8957b;
+    transform-origin: top;
+    transition: transform 0.s ease;
+    z-index: 2;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.letter {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 130px;
+    height: 80px;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.8rem;
+    z-index: 1;
+}
+
+/* --- Page 2 (Welcome Page) Styling --- */
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Pointing to your specific JPG file */
+    background: url('Img/1776447502997.jpg') no-repeat center center/cover;
+    z-index: 1;
+    animation: slowZoom 40s ease-in-out infinite;
+}
+
+/* The Zoom Logic */
+@keyframes slowZoom {
+    0% {
+        transform: scale(1); /* Original size */
+    }
+    50% {
+        transform: scale(1.15); /* Zoom in 15% at 5 seconds */
+    }
+    100% {
+        transform: scale(1); /* Back to original size at 10 seconds */
+    }
+}
+
+.overlay-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Changed 'to bottom' to 'to top' */
+    background: linear-gradient(to top, 
+        rgba(0, 0, 0, 1) 0%, 
+        rgba(0, 0, 0, 0.6) 40%, 
+        rgba(0, 0, 0, 0) 100%
+    );
+    z-index: 2;
+}
+
+
+
+/* 3. Ensures text appears on top of the gradient */
+.content {
+    position: relative;
+    z-index: 10; /* Highest z-index to stay visible */
+    color: white;
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'ChopinScript';
+    /* Note the change to .ttf and format('truetype') */
+    src: url('./fonts/ChopinScript.ttf') format('truetype');
+
+}
+
+.content h1 {
+    font-family: 'ChopinScript', cursive; /* Fallback to cursive if it fails */
+    color: #fff;
+    font-size: 5rem; /* Script fonts usually need to be larger to be readable */
+    margin-bottom: -15px;
+    font-weight: 300;
+    letter-spacing: 2px; /* Script fonts usually don't need high spacing */
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    
+}
+
+.content p {
+  font-family: 'ChopinScript', cursive; /* Fallback to cursive if it fails */
+    color: #fff;
+    font-size: 1.5rem; /* Script fonts usually need to be larger to be readable */
+    margin-top: -15px;
+    margin-bottom: 40px;
+    font-weight: 300;
+    letter-spacing: 2px; /* Script fonts usually don't need high spacing */
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    
+}
+/* Remove the animation from the original h1 and p tags */
+.content h1, .content p {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: none; /* Ensure they stay still until triggered */
+}
+
+/* Create the trigger class */
+.animate-text h1 {
+    animation: slideUpFade 1.2s ease-out 0.3s forwards;
+}
+
+.animate-text p {
+    animation: slideUpFade 1.2s ease-out 0.6s forwards;
+}
+
+/* Keep your @keyframes slideUpFade exactly as they were */
+@keyframes slideUpFade {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Container to stack envelope and text */
+.envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Reduce this or set to 0 to take full control with margins */
+    gap: 0px; 
+    z-index: 5;
+}
+
+/* Larger Envelope for Landscape */
+.envelope {
+    position: relative;
+    width: 350px; /* Increased size */
+    height: 220px;
+    background: #d1bfa7;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 175px solid transparent;
+    border-right: 175px solid transparent;
+    border-top: 130px solid #bcab94; /* Slightly darker than body */
+    transform-origin: top;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 3;
+}
+
+/* Wax Stamp Design */
+.stamp {
+    position: absolute;
+    top: 110px; /* Positioned where the flap meets the body */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 55px;
+    height: 55px;
+    background: #e6b800; /* Wax color */
+    border-radius: 50%;
+    z-index: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 3D shadow effect */
+    box-shadow: 
+        inset 2px 2px 5px rgba(255,255,255,0.5),
+        3px 5px 10px rgba(0,0,0,0.4);
+    transition: opacity 0.4s ease;
+}
+
+/* 2D Sunflower Icon inside stamp */
+.sunflower {
+    width: 30px;
+    height: 30px;
+    background: #4a3728; /* Center of flower */
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid #b8860b;
+}
+
+.sunflower::before {
+    content: '';
+    position: absolute;
+    left: -13px;
+    top: -13px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 6px dotted #ffdb58; /* Petals */
+}
+
+/* Open State */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1; /* Moves flap behind so we can see inside */
+}
+
+.envelope.open .stamp {
+    opacity: 0; /* Stamp "breaks" or disappears when opened */
+}
+
+@font-face {
+    font-family: 'ShadowsIntoLightTwo-Regular';
+    /* Note the change to .ttf and format('truetype') */
+    src: url('./fonts/ShadowsIntoLightTwo-Regular.ttf') format('truetype');
+
+}
+
+/* Instruction Text */
+.instruction-text {
+    color: #fff;
+    font-family: 'ShadowsIntoLightTwo-Regular.ttf', cursive; 
+    font-size: 2rem;
+    letter-spacing: 0px;
+    font-weight: 300;
+    opacity: 0.8;
+    animation: pulse 2s infinite;
+}
+
+@font-face {
+    font-family: 'ChopinScript';
+    /* Note the change to .ttf and format('truetype') */
+    src: url('./fonts/ChopinScript.ttf') format('truetype');
+
+}
+
+    
+.birthday-header {
+    font-family: 'ChopinScript', cursive; /* Fallback to cursive if it fails */
+    color: #f0e6d2;
+    font-size: 4.5rem; /* Script fonts usually need to be larger to be readable */
+    margin-bottom: -15px;
+    font-weight: 300;
+    letter-spacing: 2px; /* Script fonts usually don't need high spacing */
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    animation: fadeInDown 1.5s ease-out forwards;
+}
+
+/* Entrance Animation */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ensure the container stacks everything correctly */
+.envelope-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Space between Header, Envelope, and Instruction */
+    z-index: 5;
+}
+
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+.enter-link {
+    position: absolute;
+    bottom: -100px; /* Adjust based on your 16:9 frame */
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: underline;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: color 0.3s ease;
+}
+
+/* Animate the link to appear after the header */
+.animate-text .enter-link {
+    animation: fadeIn 1.7s ease-out 2s forwards;
+}
+
+.enter-link:active {
+    color: #f0e6d2; /* Glows slightly when tapped on mobile */
+}
+
+/* --- Page 3 Base --- */
+/* Ensure the Lobby allows scrolling */
+#page-3 {
+    background-color: #000;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+/* Force each section to be 16:9 */
+.lobby-section {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* This is the magic line */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Section 1: The Image Page */
+.img-section {
+    background-color: #000;
+}
+
+.img-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('Img/page3bg.jpg');
+    background-size: contain; /* Shows the whole image without cropping */
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: blur(1px);
+    z-index: 1;
+}
+.first-image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* MULTIPLE GRADIENTS: 
+       1. Black fading down from the top 
+       2. Red fading up from the bottom */
+    background: 
+        linear-gradient(to bottom, 
+            rgba(0, 0, 0, 0.8) 10%, 
+            rgba(0, 0, 0, 0) 40%
+        ),
+        linear-gradient(to top, 
+            rgb(69, 16, 16) 0%, 
+            rgba(69, 16, 16, 0.6) 30%, 
+            rgba(69, 16, 16, 0) 70%
+        );
+        
+    z-index: 2;
+}
+
+/* --- LANDING PAGE STYLES --- */
+
+.first-image {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+}
+
+/* Top Left "Lobby" Label */
+.lobby-label {
+    position: absolute;
+    top: 40px;
+    left: 30px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    /* Adding a small dot before the text for a "status" look */
+    display: flex;
+    align-items: center;
+}
+
+.lobby-label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    margin-right: 10px;
+    opacity: 0.5;
+}
+
+.welcome-text {
+    font-family: 'ChopinScript';
+    font-size: 4rem; /* Slightly larger for "For You." */
+    font-weight: 300;
+    color: #ffffff;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.welcome-subtext {
+    font-family: 'cursive';
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    line-height: 1.8;
+    color: #fff; 
+    max-width: 450px;
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+.scroll-hint {
+    position: absolute;
+    bottom: 50px; /* Distance from the bottom of the screen */
+    left: 50%;
+    transform: translateX(-50%); /* This perfectly centers it left-to-right */
+    width: auto;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    white-space: nowrap; /* Prevents the text from wrapping */
+    animation: fade-pulse 2s infinite ease-in-out;
+    z-index: 5;
+}
+
+
+/* 3. Ensure text stays on top */
+.first-image .lobby-content {
+    z-index: 5;
+    position: relative;
+}
+
+.cmd-text {
+    font-family: 'Consolas', 'Lucida Console', monospace;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+/* --- Transition Curtain --- */
+#transition-curtain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0;
+    z-index: 999;
+    pointer-events: none;
+    transition: opacity 0.4s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+#passcode-screen {
+    background: #000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+}
+
+.passcode-container {
+    text-align: center;
+    width: 100%;
+}
+
+.passcode-hint {
+    color: #f0e6d2;
+    font-family: sans-serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+#passcode-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 15px;
+    width: 150px;
+    font-family: serif;
+}
+
+.underline {
+    height: 1px;
+    background: #f0e6d2;
+    width: 120px;
+    margin: 10px auto;
+    opacity: 0.3;
+}
+/* The 'Aww' wrong password message */
+#error-message {
+    color: #ff4d4d; /* Soft red */
+    letter-spacing: 3px;;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* The 'Fine, the passcode is...' message */
+#fine-message {
+color: #f0e6d2;
+    font-family: sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    opacity: 0.6;
+}
+
+@font-face {
+    font-family: 'ComicRelief-Regular';
+    /* Note the change to .ttf and format('truetype') */
+    src: url('./fonts/ComicRelief-Regular.ttf') format('truetype');
+
+}
+/* The 'Yass' success message */
+#success-message {
+    font-family: 'ShadowsIntoLightTwo-Regular';
+    color: #f0e6d2; /* Elegant cream/white */
+    font-size: 2.5rem;
+    font-style: italic;
+    text-align: center;
+    margin-top: 20px;
+    animation: simpleFade 0.5s ease-in forwards;
+}
+
+/* Add this to your style.css */
+.shake {
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-8px); }
+    50% { transform: translateX(8px); }
+    75% { transform: translateX(-8px); }
+}
+
+
+@keyframes simpleFade {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Middle Section (Large/Full) --- */
+.interactive-page {
+    background-color: #451010;
+    min-height: 80vh; /* Large space for the icons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centers the icons inside the container */
+    align-items: flex-end;
+    gap: 100px;
+
+    /* THE FIX: This centers the container itself */
+    margin: 0 auto; 
+    width: fit-content; /* This makes the container only as wide as the icons */
+    
+    /* Remove any potential leftover padding */
+    padding: 0; 
+    position: relative;
+    left: 0;
+    /* Adjust the -10px until it looks perfectly centered to you */
+    transform: translateX(0px); 
+
+}
+/* The starting state (invisible and shifted down) */
+.icon-item {
+    opacity: 0;
+    transform: translateY(50px); /* Adjust this for a longer/shorter slide */
+    transition: all 0.8s ease-out; /* Controls how smooth/fast the slide is */
+}
+
+/* The state triggered by JavaScript */
+.icon-item.reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Optional: Staggered delay so they slide up one-by-one (1, 2, 3) */
+.icon-item:nth-child(2) { transition-delay: 0.2s; }
+.icon-item:nth-child(3) { transition-delay: 0.4s; }
+
+/* This creates the 'stutter' loop */
+@keyframes stutter-wiggle {
+    0% { transform: rotate(0deg) scale(1); }
+    25% { transform: rotate(3deg) scale(1.05); }
+    50% { transform: rotate(-2deg) scale(0.98); }
+    75% { transform: rotate(1deg) scale(1.02); }
+    100% { transform: rotate(0deg) scale(1); }
+}
+
+.icon-item img {
+    /* ... your existing width/height ... */
+    width: 150px; /* Adjust your large size here */
+    height: auto;
+    margin-bottom: 10px;;
+    object-fit: contain;
+    /* THE MAGIC: 'steps(4)' makes it jump in 4 jerky movements per loop */
+    animation: stutter-wiggle 1.2s steps(4) infinite;
+    
+    /* This ensures it looks crisp even when moving */
+    image-rendering: pixelated; 
+}
+
+/* Stagger the start times so they don't all jump at the exact same millisecond */
+.icon-item:nth-child(2) img { animation-delay: 0.3s; }
+.icon-item:nth-child(3) img { animation-delay: 0.6s; }
+
+.icon-item p {
+    font-family: 'ChopinScript', cursive; /* Fallback to cursive if it fails */
+    font-size: 2rem; /* Script fonts usually need to be larger to be readable */
+    font-weight: 300;
+    letter-spacing: 2px; /* Script fonts usually don't need high spacing */
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    color: #f0e6d2;
+}
+
+.iconMessage {
+  margin-left: 27px;
+}
+
+.iconFlowers {
+  margin-left: 33px;
+}
+
+.iconHirono {
+  margin-left: 42px;
+}
+
+/* --- The Footer Strip (Small 1/3 Height) --- */
+.lobby-footer-strip {
+    height: 33.33vh; /* Exactly 1/3 of the screen */
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.lobby-credit-text {
+    font-family: 'CascadiaMono-VariableFont_wght';
+    color: #fff;
+    font-size: 0.8rem;
+    opacity: 0.8; /* Makes the credit secondary to the warning */
+}
+
+.footer-small {
+    font-family: 'CascadiaMono-VariableFont_wght';
+    font-size: 0.7rem;
+    color: #fff;
+    opacity: 0.5;
+    margin-top: 5px;
+}
+
+/* If the first icon (Envelope) looks too low */
+.icon-item:nth-child(1) img {
+    transform: translateY(-25px); /* Moves it UP 5 pixels */
+}
+
+/* If the second icon (Bouquet) looks too high */
+.icon-item:nth-child(-4) img {
+    transform: translateY(-10px); /* Moves it DOWN 8 pixels */
+}
+
+/* If the third icon (Hirono) needs a tilt */
+.icon-item:nth-child(3) img {
+    transform: translateY(-2px); 
+}
+.lobby-footer-strip {
+    height: 33.33vh;
+    width: 100%;
+    position: relative;
+    
+    /* 1. Remove the border you had earlier */
+    border-top: none; 
+
+    /* 2. Seamless Gradient */
+    background: linear-gradient(to bottom, 
+        rgb(69, 16, 16) 0%, 
+        rgba(69, 16, 16, 0.5) 80%, 
+        rgba(69, 16, 16, 0.15)  100%
+    );
+
+    /* 3. The "Gap Killer": Pulls the footer up slightly to overlap the section above */
+    margin-top: -1px; 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ensure the middle section doesn't have extra spacing */
+.interactive-page {
+    margin-bottom: 0 !important;
+    padding-bottom: 20px; 
+    position: relative; /* Added to help with layering */
+    z-index: 1; 
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex; /* Keep flex for centering */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Increased to stay above everything */
+    opacity: 0;
+    visibility: hidden; /* THE FIX: Fully hides it from the click-path */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible; /* THE FIX: Makes it interactable */
+    pointer-events: auto;
+}
+
+/* --- PAPER MESSAGE --- */
+.paper-texture {
+    background-color: #f0e6d2;
+    width: 80%;
+    max-width: 350px;
+    padding: 40px 20px;
+    position: relative;
+    box-shadow: 10px 10px 0px rgba(0,0,0,0.2);
+    transform: rotate(-2deg);
+    z-index: 1001; /* Ensure it stays above the overlay background */
+}
+
+/* Base poem text (Dark for paper) */
+.poem-text {
+    font-family: 'Courier New', Courier, monospace;
+    color: #2e2102; 
+    line-height: 1.6;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: pre-line;
+}
+
+/* --- FLOWER MESSAGE (No paper) --- */
+.flower-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 320px; 
+    height: 320px;
+}
+.flower-paper {
+    /* Tilt it 2 degrees positive to contrast the message paper */
+    transform: rotate(2deg) !important; 
+    background-color: #fffdf5;
+}
+
+/* Ensure the wrapper doesn't allow extra scrolling */
+.scroll-wrapper {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.flower-message {
+    text-align: center;
+    z-index: 5;
+    padding: 20px;
+}
+
+/* Light text specifically for the flower overlay */
+.flower-message .poem-text {
+    color: #fff9e6 !important; /* Force light color against dark overlay */
+    font-weight: bold;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8); 
+}
+
+/* Sunflower heads (Stickers) */
+.sunflower-head {
+    position: absolute;
+    line-height: 1;
+    /* Ensure you have @keyframes stutter-wiggle defined elsewhere */
+    animation: stutter-wiggle 2s steps(4) infinite;
+    filter: drop-shadow(0 0 10px rgba(255, 200, 0, 0.3));
+    user-select: none; /* Prevents accidentally selecting the emoji text */
+}
+
+.sf-large { font-size: 100px; top: -20px; right: -10px; transform: rotate(15deg); }
+.sf-medium { font-size: 70px; bottom: 20px; left: -30px; animation-delay: 0.5s; transform: rotate(-15deg); }
+.sf-small { font-size: 50px; top: 10px; left: 10px; animation-delay: 1s; transform: rotate(-10deg); }
+
+.paper-tear {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background-image: radial-gradient(circle at 10px -5px, transparent 12px, #f0e6d2 13px);
+    background-size: 20px 20px;
+}

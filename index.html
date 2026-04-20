@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room 0417</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="landscape-warning">
+    <p class="warning-text">Please rotate your phone to landscape for the best experience.</p>
+    <p class="credit-text">This website was created for Abian Drea as a birthday present.</p>
+</div>
+
+    <div id="transition-curtain"></div>
+
+<div class="main-stage">
+<section id="page-1">
+    <div class="envelope-container">
+       <h1 class="birthday-header">Happy Birthday</h1> 
+        <div class="envelope-wrapper" onclick="openLetter()">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="stamp">
+                    <div class="sunflower"></div>
+                </div>
+            </div>
+        </div>
+        <p class="instruction-text">Click the seal to open</p>
+    </div>
+</section>
+
+
+<section id="page-2" class="hidden">
+    <div class="hero-image"></div>
+    <div class="overlay-gradient"></div>
+    <div class="content">
+        <h1>Happy Birthday Pukang</h1>
+        <p>05 - 30 - 2026</p>
+        
+        <a href="#" class="enter-link" onclick="goToLobby(event)">Click Here</a>
+    </div>
+</section>
+<section id="passcode-screen" class="hidden">
+<div class="passcode-container">
+    <p class="passcode-hint">Enter a special date</p>
+    
+    <div class="input-wrapper">
+        <input type="password" id="passcode-input" placeholder="••••" maxlength="4" inputmode="numeric">
+        <div class="underline"></div>
+    </div>
+    
+    <p id="error-message" class="hidden">Aww that’s not it, try again</p>
+    <p id="fine-message" class="hidden">Fine, the passcode is 0530</p>
+    <p id="success-message" class="hidden">Yass, special kasi birthday mo</p>
+</div>
+
+
+</section>
+<section id="page-3" class="hidden">
+    <div class="scroll-wrapper">
+        
+<div class="lobby-section img-section first-image">
+    <div class="lobby-label">Lobby</div>
+
+    <div class="lobby-content">
+        <h1 class="welcome-text">For You.</h1>
+        <p class="welcome-subtext">
+            Here are a few things I made for you, <br>
+            small tokens of memories and melodies <br>
+            that always remind me of how special you are.
+        </p>
+    </div>
+
+    <div class="scroll-hint">Scroll down to explore</div>
+</div>
+
+
+
+        <div class="lobby-section interactive-page">
+            <div class="icon-container">
+                <div class="icon-item" onclick="openMessage()">
+                    <img src="Img/envelopeIcon.png" alt="Message">
+                    <p class="iconMessage">Message</p>
+                </div>
+                <div class="icon-item" onclick="showBouquet()">
+                    <img src="Img/sunflowerIcon.png" alt="Gift">
+                    <p class="iconFlowers">Flowers</p>
+                </div>
+                <div class="icon-item" onclick="showHirono()">
+                    <img src="Img/hironoIcon.png" alt="Hirono">
+                    <p class="iconHirono">Hirono</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lobby-footer-strip">
+            <div class="lobby-content">
+                <p class="lobby-credit-text">© Created for Abian Drea</p>
+                <footer class="footer-small">04 - 17 - 2026</footer>
+            </div>
+        </div>
+        </div>
+</section>
+
+<div id="paper-overlay" class="overlay" onclick="closeMessage()">
+    <div class="paper-texture">
+        <div class="paper-content">
+            <p class="poem-text">
+                Kung ang musika ay nagkatawang tao, 
+                Anyo mo lamang ang tatanggapin ko. 
+                Dahil ang dulot mo sa aking damdamin, 
+                Ang siyang hugot ko sa bawat kong awitin.
+            </p>
+        </div>
+        <div class="paper-tear"></div>
+    </div>
+</div>
+
+
+<div id="flower-overlay" class="overlay" onclick="closeFlowers()">
+    <div class="paper-texture flower-paper">
+        
+        <div class="sunflower-head sf-large">🌻</div>
+        <div class="sunflower-head sf-medium">🌻</div>
+        
+        <div class="paper-content">
+            <p class="poem-text">
+                Sa bawat pagsikat ng iyong liwanag,
+                Ako ang bulaklak na sayo’y pumapanig.
+                Hindi kailangan ng ibang bituin,
+                Ikaw lang ang sapat na aking titingalain.
+            </p>
+        </div>
+        
+        <div class="paper-tear"></div>
+    </div>
+</div>
+
+<div id="hirono-overlay" class="overlay" onclick="closeHirono()">
+    <div class="hirono-container">
+        
+        <div class="large-disc">
+            <div class="spinning-disc">
+                <svg class="curved-text-svg" viewBox="0 0 300 300">
+                    <path id="outsideCircle" 
+                          d="M 150, 150 m -130, 0 a 130,130 0 1,1 260,0 a 130,130 0 1,1 -260,0" 
+                          fill="transparent" />
+                    <text>
+                        <textPath xlink:href="#outsideCircle" class="vinyl-text">
+                            NOTHING - BRUNO MAJOR — NOTHING - BRUNO MAJOR —
+                        </textPath>
+                    </text>
+                </svg>
+                
+                <div class="disc-groove"></div>
+                <div class="disc-center"></div>
+            </div>
+        </div>
+
+<div class="paper-texture hirono-paper">
+    <div class="paper-content">
+        <p class="poem-text">
+            Sa bawat tipa ng gitara 
+            at daloy ng himig,
+            Pangalan mo ang tanging naririnig.
+            
+            Saksi ang kantang ito 
+            sa ating pagtambay,
+            Sa mundong magulo, 
+            ikaw ang aking pahinga't gabay.
+        </p>
+    </div>
+    <div class="paper-tear"></div>
+</div>
+
+    </div>
+</div>
+
+
+
+    <script src="script.js"></script>
+</div>
+</body>
+</html>
