@@ -13,174 +13,191 @@
     <p class="credit-text">This website was created for Abian Drea as a birthday present.</p>
 </div>
 
-    <div id="transition-curtain"></div>
+<div id="transition-curtain"></div>
 
 <div class="main-stage">
-<section id="page-1">
-    <div class="envelope-container">
-       <h1 class="birthday-header">Happy Birthday</h1> 
-        <div class="envelope-wrapper" onclick="openLetter()">
-            <div class="envelope">
-                <div class="flap"></div>
-                <div class="stamp">
-                    <div class="sunflower"></div>
+    
+    <section id="page-1">
+        <div class="envelope-container">
+            <div class="envelope-wrapper" onclick="openLetter()">
+                <div class="envelope">
+                    <div class="flap"></div>
+                    <div class="stamp">
+                        <div class="sunflower"></div>
+                    </div>
                 </div>
             </div>
+            <p class="instruction-text">Click the seal to open</p>
         </div>
-        <p class="instruction-text">Click the seal to open</p>
-    </div>
-</section>
+    </section>
 
-
-<section id="page-2" class="hidden">
-    <div class="hero-image"></div>
-    <div class="overlay-gradient"></div>
-    <div class="content">
-        <h1>Happy Birthday Pukang</h1>
-        <p>05 - 30 - 2026</p>
-        
+    <section id="page-2" class="hidden">
+        <div class="hero-image"></div>
+        <div class="overlay-gradient"></div>
+        <div class="content">
+            <h1>Happy Birthday Pukang</h1>
+            <p>05 - 30 - 2026</p>
+        </div>
         <a href="#" class="enter-link" onclick="goToLobby(event)">Click Here</a>
-    </div>
-</section>
-<section id="passcode-screen" class="hidden">
-<div class="passcode-container">
-    <p class="passcode-hint">Enter a special date</p>
-    
-    <div class="input-wrapper">
-        <input type="password" id="passcode-input" placeholder="••••" maxlength="4" inputmode="numeric">
-        <div class="underline"></div>
-    </div>
-    
-    <p id="error-message" class="hidden">Aww that’s not it, try again</p>
-    <p id="fine-message" class="hidden">Fine, the passcode is 0530</p>
-    <p id="success-message" class="hidden">Yass, special kasi birthday mo</p>
-</div>
+    </section>
 
+    <section id="passcode-screen" class="hidden">
+        <div id="petal-container"></div>
+        <div class="passcode-container">
+            <p class="passcode-hint">Enter a special date</p>
+            <div class="input-wrapper">
+                <input type="password" id="passcode-input" placeholder="••••" maxlength="4" inputmode="numeric">
+                <div class="underline"></div>
+            </div>
+            <p id="error-message" class="hidden">Aww that’s not it, try again</p>
+            <p id="fine-message" class="hidden">Fine, the passcode is 0530</p>
+            <p id="success-message" class="hidden">Yass, special kasi birthday mo</p>
+        </div>
+    </section>
 
-</section>
-<section id="page-3" class="hidden">
-    <div class="scroll-wrapper">
+    <section id="page-3" class="hidden">
+        <div class="scroll-wrapper">
+            
+            <div class="lobby-section img-section first-image" style="position: relative;">
+                <div class="lobby-content">
+                    <h1 class="welcome-text">For You.</h1>
+                    <p class="welcome-subtext">
+                        Here are a few things I made for you, <br>
+                        small tokens of memories and melodies. <br> 
+                    </p>
+                </div>
+                <div class="scroll-hint">Scroll down to explore</div>
+
+                <div id="ice-cream-trigger" onclick="openIceCreamModal()">
+                    <img src="Img/icecream.png" alt="🍦" onerror="this.style.display='none'; this.parentElement.innerHTML='🍦';">
+                </div>
+            </div>
+
+            <div class="lobby-section interactive-page">
+                <div class="icon-container">
+                    <div class="icon-item" onclick="openMessage()">
+                        <img src="Img/envelopeIcon.png" alt="Message">
+                        <p class="iconMessage">Message</p>
+                    </div>
+                    <div class="icon-item" onclick="showBouquet()">
+                        <img src="Img/sunflowerIcon.png" alt="Gift">
+                        <p class="iconFlowers">Flowers</p>
+                    </div>
+                    <div class="icon-item" onclick="showHirono()">
+                        <img src="Img/hironoIcon.png" alt="Hirono">
+                        <p class="iconHirono">Hirono</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lobby-footer-strip">
+                <div class="lobby-content">
+                    <p class="lobby-credit-text">© Created for Abian Drea</p>
+                    <footer class="footer-small">04 - 17 - 2026</footer>
+                </div>
+            </div>
+        </div>
+
+<div id="ice-cream-modal" class="custom-overlay" onclick="closeIceCreamModal()">
+    <div class="receipt-card" onclick="event.stopPropagation()">
         
-<div class="lobby-section img-section first-image">
-    <div class="lobby-label">Lobby</div>
+        <div class="receipt-content">
+            <div class="receipt-header">
+                <h3>BIRTHDAY TREAT CO.</h3>
+                <p>Order #0530-2026</p>
+                <div class="receipt-divider"></div>
+            </div>
 
-    <div class="lobby-content">
-        <h1 class="welcome-text">For You.</h1>
-        <p class="welcome-subtext">
-            Here are a few things I made for you, <br>
-            small tokens of memories and melodies <br>
-            that always remind me of how special you are.
-        </p>
+            <div class="receipt-item">
+                <span>1x SECRET ICE CREAM</span>
+                <span>FREE</span>
+            </div>
+            
+            <div class="receipt-divider"></div>
+
+            <div class="total-section">
+                <strong>TOTAL</strong>
+                <strong>PRICELESS</strong>
+            </div>
+
+            <div class="barcode-area">
+                <div class="barcode"></div>
+                <p class="barcode-number">0530 2026 0417</p>
+            </div>
+            
+            <p class="receipt-footer">Valid until: Forever<br>Redeemable via screenshot</p>
+        </div>
+
+        <span class="close-btn" onclick="closeIceCreamModal()">&times;</span>
     </div>
-
-    <div class="scroll-hint">Scroll down to explore</div>
 </div>
 
 
-
-        <div class="lobby-section interactive-page">
-            <div class="icon-container">
-                <div class="icon-item" onclick="openMessage()">
-                    <img src="Img/envelopeIcon.png" alt="Message">
-                    <p class="iconMessage">Message</p>
-                </div>
-                <div class="icon-item" onclick="showBouquet()">
-                    <img src="Img/sunflowerIcon.png" alt="Gift">
-                    <p class="iconFlowers">Flowers</p>
-                </div>
-                <div class="icon-item" onclick="showHirono()">
-                    <img src="Img/hironoIcon.png" alt="Hirono">
-                    <p class="iconHirono">Hirono</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="lobby-footer-strip">
-            <div class="lobby-content">
-                <p class="lobby-credit-text">© Created for Abian Drea</p>
-                <footer class="footer-small">04 - 17 - 2026</footer>
-            </div>
-        </div>
-        </div>
-</section>
+    </section>
+</div>
 
 <div id="paper-overlay" class="overlay" onclick="closeMessage()">
     <div class="paper-texture">
         <div class="paper-content">
             <p class="poem-text">
-                Kung ang musika ay nagkatawang tao, 
-                Anyo mo lamang ang tatanggapin ko. 
-                Dahil ang dulot mo sa aking damdamin, 
-                Ang siyang hugot ko sa bawat kong awitin.
-            </p>
+              Kung ang musika ay nagkatawang tao, <br>
+              Anyo mo lamang ang tatanggapin ko. <br>
+              Dahil ang dulot mo sa aking damdamin, <br> 
+              Ang siyang hugot ko sa bawat kong awitin.</p>
         </div>
         <div class="paper-tear"></div>
     </div>
 </div>
 
-
 <div id="flower-overlay" class="overlay" onclick="closeFlowers()">
     <div class="paper-texture flower-paper">
-        
         <div class="sunflower-head sf-large">🌻</div>
         <div class="sunflower-head sf-medium">🌻</div>
-        
         <div class="paper-content">
             <p class="poem-text">
-                Sa bawat pagsikat ng iyong liwanag,
-                Ako ang bulaklak na sayo’y pumapanig.
-                Hindi kailangan ng ibang bituin,
-                Ikaw lang ang sapat na aking titingalain.
-            </p>
+              Sa bawat pagsikat ng iyong liwanag, <br>
+              Ako ang bulaklak na sayo'y pumapanig. <br>
+              Hindi kailangan ng ibang bituin, <br>
+              Ikaw lang ang sapat na aking titingalain.</p>
         </div>
-        
         <div class="paper-tear"></div>
     </div>
 </div>
 
 <div id="hirono-overlay" class="overlay" onclick="closeHirono()">
     <div class="hirono-container">
-        
         <div class="large-disc">
             <div class="spinning-disc">
                 <svg class="curved-text-svg" viewBox="0 0 300 300">
-                    <path id="outsideCircle" 
-                          d="M 150, 150 m -130, 0 a 130,130 0 1,1 260,0 a 130,130 0 1,1 -260,0" 
-                          fill="transparent" />
-                    <text>
-                        <textPath xlink:href="#outsideCircle" class="vinyl-text">
-                            NOTHING - BRUNO MAJOR — NOTHING - BRUNO MAJOR —
-                        </textPath>
-                    </text>
+                    <path id="outsideCircle" d="M 150, 150 m -130, 0 a 130,130 0 1,1 260,0 a 130,130 0 1,1 -260,0" fill="transparent" />
+                    <text><textPath xlink:href="#outsideCircle" class="vinyl-text">NOTHING - BRUNO MAJOR — NOTHING - BRUNO MAJOR —</textPath></text>
                 </svg>
-                
-                <div class="disc-groove"></div>
                 <div class="disc-center"></div>
             </div>
         </div>
-
-<div class="paper-texture hirono-paper">
-    <div class="paper-content">
-        <p class="poem-text">
-            Sa bawat tipa ng gitara 
-            at daloy ng himig,
-            Pangalan mo ang tanging naririnig.
-            
-            Saksi ang kantang ito 
-            sa ating pagtambay,
-            Sa mundong magulo, 
-            ikaw ang aking pahinga't gabay.
-        </p>
-    </div>
-    <div class="paper-tear"></div>
-</div>
-
+        <div class="paper-texture hirono-paper">
+            <div class="paper-content">
+                <p class="poem-text">
+                  Sa bawat tipa ng gitara <br>
+                  at daloy ng himig, <br>
+                  Pangalan mo ang <br>
+                  tanging naririnig. <br>
+                  Saksi ang kantang ito <br>
+                  sa ating pagtambay, <br>
+                  Sa mundong magulo, <br>
+                  ikaw ang aking <br>
+                  pahinga't gabay.</p>
+            </div>
+        </div>
     </div>
 </div>
 
+<audio id="bg-music" loop>
+    <source src="audios/nothing_bruno_major.mp3" type="audio/mpeg">
+</audio>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="script.js"></script>
 
-    <script src="script.js"></script>
-</div>
 </body>
 </html>
